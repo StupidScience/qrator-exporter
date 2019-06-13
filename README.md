@@ -14,8 +14,21 @@ Exporter configurates via environment variables:
 |QRATOR_CLIENT_ID|Your client ID for qrator. Only digits required.|
 |QRATOR_X_QRATOR_AUTH|X-Qrator-Auth header for access to Qrator Api. It's not required if you use IP auth|
 
-Exporter listen on tcp-port `9502`. Metrics available on `/metrics` path.
+Exporter listen on tcp-port **9502**. Metrics available on `/metrics` path.
 
 ## Exposed metrics
 
 It returns all statistics that defined [here](https://api.qrator.net/#types-statisticsresponse).
+
+## Run via Docker
+
+The latest release is automatically published to the [Docker registry](https://hub.docker.com/r/stupidscience/qrator-exporter).
+
+You can run it like this:
+```
+$ docker run -d --name qrator-exporter \
+            -e QRATOR_CLIENT_ID=12345 \
+            -e QRATOR_X_QRATOR_AUTH=12345abcdef \
+            -p 9502:9502 \
+            stupidscience/qrator-exporter
+```

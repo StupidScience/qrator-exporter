@@ -1,5 +1,0 @@
-.git
-.gitignore
-vendor
-Dockerfile
-k8s
