@@ -38,7 +38,6 @@ type qratorDomains struct {
 
 type qratorDomainStat struct {
 	Result struct {
-		Time         int     `json:"time"`
 		Bsend        float64 `json:"bsend"`
 		Brecv        float64 `json:"brecv"`
 		Bout         float64 `json:"bout"`
@@ -57,7 +56,7 @@ type qratorDomainStat struct {
 		Err504       int     `json:"err504"`
 		Ban          int     `json:"ban"`
 		BanAPI       int     `json:"ban_api"`
-		BanWaf       int     `json:"ban_waf"`
+		BanWAF       int     `json:"ban_waf"`
 		Billable     int     `json:"billable"`
 	} `json:"result"`
 	Error string `json:"error"`
@@ -135,10 +134,10 @@ func (c *Collector) Collect(ch chan<- prometheus.Metric) {
 			c.ErrorsCount.WithLabelValues(qd.Name, "501").Set(float64(s.Result.Err501))
 			c.ErrorsCount.WithLabelValues(qd.Name, "502").Set(float64(s.Result.Err502))
 			c.ErrorsCount.WithLabelValues(qd.Name, "503").Set(float64(s.Result.Err503))
-			c.ErrorsCount.WithLabelValues(qd.Name, "503").Set(float64(s.Result.Err503))
+			c.ErrorsCount.WithLabelValues(qd.Name, "504").Set(float64(s.Result.Err504))
 			c.BannedIPs.WithLabelValues(qd.Name, "Qrator").Set(float64(s.Result.Ban))
-			c.BannedIPs.WithLabelValues(qd.Name, "Qrator.API").Set(float64(s.Result.Ban))
-			c.BannedIPs.WithLabelValues(qd.Name, "WAF").Set(float64(s.Result.Ban))
+			c.BannedIPs.WithLabelValues(qd.Name, "Qrator.API").Set(float64(s.Result.BanAPI))
+			c.BannedIPs.WithLabelValues(qd.Name, "WAF").Set(float64(s.Result.BanWAF))
 			c.BillableTraffic.WithLabelValues(qd.Name).Set(float64(s.Result.Billable))
 
 			ch <- c.BypassedTraffic.WithLabelValues(qd.Name)
