@@ -1,6 +1,6 @@
 FROM alpine:3.9
 
-EXPOSE 9501
+EXPOSE 9502
 
 RUN apk add --no-cache ca-certificates
 
